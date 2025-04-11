@@ -194,10 +194,11 @@ def register(user: UserCreate, response: Response):
         key="session_id", 
         value=session_id, 
         httponly=True, 
-        max_age=7 * 24 * 60 * 60,  # 7 days
-        samesite="lax",  # Changed from strict to lax for cross-site requests
-        secure=True if os.environ.get("PRODUCTION") else False
+        max_age=7 * 24 * 60 * 60,
+        samesite="None",
+        secure=True
     )
+
     
     return {
         "username": user.username,
@@ -220,10 +221,11 @@ def login(user: UserCreate, response: Response):
         key="session_id", 
         value=session_id, 
         httponly=True, 
-        max_age=7 * 24 * 60 * 60,  # 7 days
-        samesite="lax",  # Changed from strict to lax for cross-site requests
-        secure=True if os.environ.get("PRODUCTION") else False
+        max_age=7 * 24 * 60 * 60,
+        samesite="None",
+        secure=True
     )
+
     
     return {
         "username": user.username,
@@ -326,15 +328,15 @@ def form_login(username: str = Form(...), response: Response = None):
     session_id = secrets.token_urlsafe(32)
     SESSIONS[session_id] = username
     
-    # Set cookie
     response.set_cookie(
         key="session_id", 
         value=session_id, 
         httponly=True, 
         max_age=7 * 24 * 60 * 60,
-        samesite="lax",
-        secure=True if os.environ.get("PRODUCTION") else False
+        samesite="None",
+        secure=True
     )
+
     
     return {
         "username": username,
@@ -369,9 +371,10 @@ def form_register(username: str = Form(...), response: Response = None):
         value=session_id, 
         httponly=True, 
         max_age=7 * 24 * 60 * 60,
-        samesite="lax",
-        secure=True if os.environ.get("PRODUCTION") else False
+        samesite="None",
+        secure=True
     )
+
     
     return {
         "username": username,
@@ -392,15 +395,15 @@ def token_login(username: str = Form(...), response: Response = None):
     SESSIONS[token] = username
     
     # Also set a session cookie for cookie-based auth
-    if response:
-        response.set_cookie(
-            key="session_id", 
-            value=token, 
-            httponly=True, 
-            max_age=7 * 24 * 60 * 60,
-            samesite="lax",
-            secure=True if os.environ.get("PRODUCTION") else False
-        )
+    response.set_cookie(
+        key="session_id", 
+        value=token, 
+        httponly=True, 
+        max_age=7 * 24 * 60 * 60,
+        samesite="None",
+        secure=True
+    )
+
     
     return {
         "username": username,
