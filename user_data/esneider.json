@@ -1,0 +1,50 @@
+{
+  "xp": 36,
+  "level": 2,
+  "habits": [
+    {
+      "id": 1,
+      "name": "Stretching",
+      "completed": false,
+      "selected": false,
+      "xp": 10,
+      "streak": 1,
+      "lastCompletedDate": "2025-04-11"
+    },
+    {
+      "id": 2,
+      "name": "Exercise",
+      "completed": false,
+      "selected": false,
+      "xp": 15,
+      "streak": 2,
+      "lastCompletedDate": "2025-04-11"
+    }
+  ],
+  "prs": [
+    {
+      "id": 1,
+      "name": "Push-ups",
+      "current": 0,
+      "unit": "reps"
+    },
+    {
+      "id": 2,
+      "name": "Plank time",
+      "current": 0,
+      "unit": "seconds"
+    }
+  ],
+  "todos": [
+    {
+      "id": 1,
+      "text": "Fill out habits",
+      "completed": true
+    },
+    {
+      "id": 2,
+      "text": "Fill out personal records",
+      "completed": false
+    }
+  ]
+}

@@ -58,7 +58,7 @@ app.add_middleware(APIPathPrefixMiddleware)
 app.add_middleware(
     CORSMiddleware,
     allow_origins=[
-        "http://localhost:5173",  # Local development
+        "http://localhost:5175",  # Local development
         "https://habit-hero-frontend.vercel.app"  # Your Vercel domain (update this)
     ],
     allow_credentials=True,
