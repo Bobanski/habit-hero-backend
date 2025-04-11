@@ -330,9 +330,9 @@ def form_login(username: str = Form(...), response: Response = None):
     SESSIONS[session_id] = username
     
     response.set_cookie(
-        key="session_id", 
-        value=session_id, 
-        httponly=True, 
+        key="session_id",
+        value=session_id,
+        httponly=True,
         max_age=7 * 24 * 60 * 60,
         samesite="None",
         secure=True
@@ -368,9 +368,9 @@ def form_register(username: str = Form(...), response: Response = None):
     
     # Set cookie
     response.set_cookie(
-        key="session_id", 
-        value=session_id, 
-        httponly=True, 
+        key="session_id",
+        value=session_id,
+        httponly=True,
         max_age=7 * 24 * 60 * 60,
         samesite="None",
         secure=True
