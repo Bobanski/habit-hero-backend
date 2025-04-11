@@ -329,13 +329,24 @@ def form_login(username: str = Form(...), response: Response = None):
     session_id = secrets.token_urlsafe(32)
     SESSIONS[session_id] = username
     
+    # Set a more permissive cookie for testing
     response.set_cookie(
         key="session_id",
         value=session_id,
         httponly=True,
         max_age=7 * 24 * 60 * 60,
-        samesite="None",
-        secure=True
+        samesite="Lax",  # Changed from None to Lax for better compatibility
+        secure=False     # Set to False for testing
+    )
+    
+    # Also set a non-httpOnly cookie for client-side access
+    response.set_cookie(
+        key="auth_token",
+        value=session_id,
+        httponly=False,
+        max_age=7 * 24 * 60 * 60,
+        samesite="Lax",
+        secure=False
     )
 
     
@@ -367,13 +378,24 @@ def form_register(username: str = Form(...), response: Response = None):
     save_user_data(username, get_default_user_data())
     
     # Set cookie
+    # Set a more permissive cookie for testing
     response.set_cookie(
         key="session_id",
         value=session_id,
         httponly=True,
         max_age=7 * 24 * 60 * 60,
-        samesite="None",
-        secure=True
+        samesite="Lax",  # Changed from None to Lax for better compatibility
+        secure=False     # Set to False for testing
+    )
+    
+    # Also set a non-httpOnly cookie for client-side access
+    response.set_cookie(
+        key="auth_token",
+        value=session_id,
+        httponly=False,
+        max_age=7 * 24 * 60 * 60,
+        samesite="Lax",
+        secure=False
     )
 
     
