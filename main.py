@@ -57,13 +57,13 @@ app.add_middleware(APIPathPrefixMiddleware)
 # Configure CORS for frontend
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=["http://localhost:5173"],  # Vite dev server
+    allow_origins=[
+        "http://localhost:5173",  # Local development
+        "https://habit-hero-frontend.vercel.app"  # Your Vercel domain (update this)
+    ],
     allow_credentials=True,
-    allow_methods=["GET", "POST", "PUT", "DELETE", "OPTIONS"],  # Explicitly allow OPTIONS
-    allow_headers=["Content-Type", "Set-Cookie", "Access-Control-Allow-Headers", 
-                  "Access-Control-Allow-Origin", "Authorization"],
-    expose_headers=["Content-Type", "Set-Cookie"],
-    max_age=600,  # Preflight requests can be cached for 10 minutes
+    allow_methods=["*"],
+    allow_headers=["*"],
 )
 
 # Directory to store user data
@@ -196,7 +196,7 @@ def register(user: UserCreate, response: Response):
         httponly=True, 
         max_age=7 * 24 * 60 * 60,  # 7 days
         samesite="lax",  # Changed from strict to lax for cross-site requests
-        secure=False     # Set to True in production with HTTPS
+        secure=True if os.environ.get("PRODUCTION") else False
     )
     
     return {
@@ -222,7 +222,7 @@ def login(user: UserCreate, response: Response):
         httponly=True, 
         max_age=7 * 24 * 60 * 60,  # 7 days
         samesite="lax",  # Changed from strict to lax for cross-site requests
-        secure=False     # Set to True in production with HTTPS
+        secure=True if os.environ.get("PRODUCTION") else False
     )
     
     return {
@@ -333,7 +333,7 @@ def form_login(username: str = Form(...), response: Response = None):
         httponly=True, 
         max_age=7 * 24 * 60 * 60,
         samesite="lax",
-        secure=False
+        secure=True if os.environ.get("PRODUCTION") else False
     )
     
     return {
@@ -370,7 +370,7 @@ def form_register(username: str = Form(...), response: Response = None):
         httponly=True, 
         max_age=7 * 24 * 60 * 60,
         samesite="lax",
-        secure=False
+        secure=True if os.environ.get("PRODUCTION") else False
     )
     
     return {
@@ -399,7 +399,7 @@ def token_login(username: str = Form(...), response: Response = None):
             httponly=True, 
             max_age=7 * 24 * 60 * 60,
             samesite="lax",
-            secure=False
+            secure=True if os.environ.get("PRODUCTION") else False
         )
     
     return {
